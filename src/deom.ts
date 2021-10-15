@@ -40,3 +40,8 @@ function addDog1<T>(dog: Dog1<T>) {
 addDog1({name: 'dd', type: 'fff' })
 addDog1<string>({name: 'dd', type: 'xxx' })
 
+
+
+type StringNot<T> = T extends 'a'|'b' ? T :never
+type MyStringNot<T> = [T] extends ['a'|'b'] ? T :never
+
