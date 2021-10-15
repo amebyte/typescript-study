@@ -41,7 +41,15 @@ addDog1({name: 'dd', type: 'fff' })
 addDog1<string>({name: 'dd', type: 'xxx' })
 
 
+// 这两个写法啥区别啊
 
 type StringNot<T> = T extends 'a'|'b' ? T :never
 type MyStringNot<T> = [T] extends ['a'|'b'] ? T :never
+
+const aaa: StringNot<'a'> = 'a'
+const bbb: StringNot<'b'> = 'b'
+
+// [T] 是否是这个 ['a'|'b'] 的子集
+
+// 就结果而言没啥区别
 
