@@ -53,3 +53,14 @@ const bbb: StringNot<'b'> = 'b'
 
 // 就结果而言没啥区别
 
+
+interface Star {
+    color?: 'blue'|'red',
+    color1?: 'blue'|'red'
+  }
+  
+  function paintStart (id: number, color: NonNullable<Star['color1']>) {
+    console.log('dfd', color)
+  }
+  
+  paintStart(1, 'blue')
