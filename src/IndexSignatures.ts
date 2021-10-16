@@ -30,4 +30,3 @@ function totalSalary(salaryObject: SalaryT) {
 totalSalary(salary1) // => 120_000
 totalSalary(salary2) // => 110_000
 
-
