@@ -157,3 +157,25 @@ npm i webpack-merge -D
 }
 ```
 
+
+
+在js中void是一个操作符，它可以让任何表达式返回undefined, undefined不是一个保留字
+
+```javascript
+// 可以对undefined进行声明赋值
+(function() { 
+    const undefined = 0; 
+    console.log(undefined)
+})()
+```
+
+使用void 0 则可以确保我们的返回值为undefined
+
+```
+// never
+let error = () => {
+    throw new Error('error')
+}
+```
+
+一个函数如果抛出了一个错误，则它永远不会有返回值，则返回值类型为never
