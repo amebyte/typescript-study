@@ -110,7 +110,8 @@ function maker(p?:string) {
     return new B()
 }
 
-
-
 const instane = maker()
 instane.sub(1,2)
+
+const instane2 = maker('ss')
+instane2.sum(1,2)
