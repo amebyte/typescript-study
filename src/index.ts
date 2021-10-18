@@ -134,41 +134,50 @@ const clients: ClientSummary = {
   active: true,
 };
 
-
 // as const 是 TS 的语法，它告诉 TS 它所断言的值以及该值的所有层级的子属性都是不可篡改的，故对每一级子属性都会做最严格的类型推断
 const albumsByStyle = {
-    psychodelic: {
-      'magical-mystery-tour': 1967,
-      'the-piper-at-the-gates-of-dawn': 1967,
-    },
-    glam: {
-      'a-night-at-the-opera': 1975,
-      'diamond-dogs': 1974,
-    }
-  } as const;
+  psychodelic: {
+    "magical-mystery-tour": 1967,
+    "the-piper-at-the-gates-of-dawn": 1967,
+  },
+  glam: {
+    "a-night-at-the-opera": 1975,
+    "diamond-dogs": 1974,
+  },
+} as const;
 
+type NumGenerator1 = () => number;
 
-  type NumGenerator1 = () => number;
-
-  function myFunc1(numGenerator1: NumGenerator1 | undefined) {
-     const num1 = numGenerator1!(); //compilation error: cannot invoke an object which is possibly undefined
-     const num2 = numGenerator1!(); //no problem
-  }
-  // 使用断言使编译器通过检查，不过不推荐这种写法，而应该使用重载
+function myFunc1(numGenerator1: NumGenerator1 | undefined) {
+  const num1 = numGenerator1!(); //compilation error: cannot invoke an object which is possibly undefined
+  const num2 = numGenerator1!(); //no problem
+}
+// 使用断言使编译器通过检查，不过不推荐这种写法，而应该使用重载
 
 // 1.重载
 type NumGenerator2 = () => number;
-function myFunc2(): undefined
+function myFunc2(): undefined;
 function myFunc2(numGenerator2?: NumGenerator2) {
-  if(numGenerator2){
-    const num1 = numGenerator2(); 
+  if (numGenerator2) {
+    const num1 = numGenerator2();
     const num2 = numGenerator2();
   }
 }
 
 // 2.可选项
 type NumGenerator3 = () => number;
-
 function myFunc3(numGenerator3: NumGenerator3 | undefined) {
-   const num1 = numGenerator3?.(); 
+  const num1 = numGenerator3?.();
+}
+
+// ts 定义数组对象格式 怎么定的,一开始是空
+
+type Aa = Array<{ abc: string }>;
+const aa: Aa = [];
+
+type Aa2 = { abc: string };
+const aa2: Aa2[] = [];
+
+interface ArticleList {
+  list: { [key: string]: number | string }[];
 }
