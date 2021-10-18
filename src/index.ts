@@ -1,42 +1,42 @@
-const myName: string = 'coboy'
-document.querySelector('#app')!.innerHTML = myName
+const myName: string = "coboy";
+document.querySelector("#app")!.innerHTML = myName;
 
 interface List {
-  id: number
-  name: string
-  desc?: string
+  id: number;
+  name: string;
+  desc?: string;
 }
 
 interface Result {
-  data: List[]
+  data: List[];
 }
 
 function filter(result: Result) {
   result.data.forEach((o) => {
     if (o.desc) {
-      console.log(o.desc)
+      console.log(o.desc);
     }
-  })
+  });
 }
 
 const result1 = {
   data: [
-    { id: 1, name: 'name1' },
-    { id: 2, name: 'name2' },
+    { id: 1, name: "name1" },
+    { id: 2, name: "name2" },
   ],
-}
+};
 
-filter(result1)
+filter(result1);
 
 // 实际过程中，可能后端返回的数组会增加一些数据
 
 const result2 = {
   data: [
-    { id: 1, name: 'name1', desc: '正在学习typescript' },
-    { id: 2, name: 'name2' },
+    { id: 1, name: "name1", desc: "正在学习typescript" },
+    { id: 2, name: "name2" },
   ],
-}
-filter(result2)
+};
+filter(result2);
 
 // 我们发现ts并没有报错，这是因为ts采取了一种鸭式变形法，这是一种动态语言风格。
 // 一个比较形象的说法是，一只鸟看起来像鸭子，走起来像鸭子，叫起来像鸭子，那么这只鸟就可以被认为是一只鸟。
@@ -70,25 +70,25 @@ filter(result2)
 // 数字索引
 
 interface StringArray {
-  [index: number]: string
+  [index: number]: string;
 }
-const chars: StringArray = ['a', 'b']
+const chars: StringArray = ["a", "b"];
 
 // 字符串索引
 interface Item {
-  [index: string]: any
-  [key: number]: number
+  [index: string]: any;
+  [key: number]: number;
 }
 
 class A {
   sum(a: number, b: number) {
-    return a + b
+    return a + b;
   }
 }
 
 class B extends A {
   sub(a: number, b: number) {
-    return a - b
+    return a - b;
   }
 }
 
@@ -96,23 +96,40 @@ class B extends A {
 
 // type RR<T> = typeof T extends typeof A ? A : B;
 
-type at = typeof A
-type bt = typeof B
+type at = typeof A;
+type bt = typeof B;
 
-type f<T> = (p?: string) => T
+type f<T> = (p?: string) => T;
 
-function maker(): B
-function maker(p:string): A
-function maker(p?:string) {
-    if(p) {
-        return new A()
-    }
-    return new B()
+function maker(): B;
+function maker(p: string): A;
+function maker(p?: string) {
+  if (p) {
+    return new A();
+  }
+  return new B();
 }
 
-const instane = maker()
-instane.sub(1,2)
+const instane = maker();
+instane.sub(1, 2);
 
-const instane2 = maker('ss')
-instane2.sum(1,2)
+const instane2 = maker("ss");
+instane2.sum(1, 2);
 // ts编译器在处理重载的时候，会去查询一个重载的列表，并且会尝试匹配第一个定义，如果不匹配就继续往下查找，所以我们要把最容易匹配的放在第一个
+
+// Pick
+// 1. pick 算是复用，并且还是原type的“计算属性”
+// 2. 主要是定义一份参数，如果参数变了，其他的也会变
+// 3. name 从 string 改成 string[]，所有从基础类型上衍生出来的类型都变了
+interface Client {
+  name: string;
+  dateOfBirth: Date;
+  active: boolean;
+}
+
+type ClientSummary = Pick<Client, "name" | "active">;
+
+const clients: ClientSummary = {
+  name: "John",
+  active: true,
+};
