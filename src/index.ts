@@ -156,12 +156,19 @@ const albumsByStyle = {
   }
   // 使用断言使编译器通过检查，不过不推荐这种写法，而应该使用重载
 
-// 重载
-type NumGenerator = () => number;
-function myFunc(): undefined
-function myFunc(numGenerator?: NumGenerator) {
-  if(numGenerator){
-    const num1 = numGenerator(); 
-    const num2 = numGenerator();
+// 1.重载
+type NumGenerator2 = () => number;
+function myFunc2(): undefined
+function myFunc2(numGenerator2?: NumGenerator2) {
+  if(numGenerator2){
+    const num1 = numGenerator2(); 
+    const num2 = numGenerator2();
   }
+}
+
+// 2.可选项
+type NumGenerator3 = () => number;
+
+function myFunc3(numGenerator3: NumGenerator3 | undefined) {
+   const num1 = numGenerator3?.(); 
 }
