@@ -146,3 +146,22 @@ const albumsByStyle = {
       'diamond-dogs': 1974,
     }
   } as const;
+
+
+  type NumGenerator1 = () => number;
+
+  function myFunc1(numGenerator1: NumGenerator1 | undefined) {
+     const num1 = numGenerator1!(); //compilation error: cannot invoke an object which is possibly undefined
+     const num2 = numGenerator1!(); //no problem
+  }
+  // 使用断言使编译器通过检查，不过不推荐这种写法，而应该使用重载
+
+// 重载
+type NumGenerator = () => number;
+function myFunc(): undefined
+function myFunc(numGenerator?: NumGenerator) {
+  if(numGenerator){
+    const num1 = numGenerator(); 
+    const num2 = numGenerator();
+  }
+}
