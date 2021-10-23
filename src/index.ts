@@ -181,3 +181,15 @@ const aa2: Aa2[] = [];
 interface ArticleList {
   list: { [key: string]: number | string }[];
 }
+
+// 捕获变量的类型
+let foo1 = 123;
+let bar1: typeof foo1;
+bar1 = "123"; // 报错  因为 typeof foo 的类型是 number
+// 捕获字符串类型
+const foo2 = "hello";
+let bar2: typeof foo2;
+bar2 = "11"; // bar 的类型是字面量类型 "hello"
+
+// 如果用的是 const 的话，那么 typeof 之后就是 字面量，因为是不可以修改的
+// 如果用的是 let 的话，那么 typeof 之后就是 string
