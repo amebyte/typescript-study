@@ -55,3 +55,38 @@ myLog2('s')
 
 // 泛型小结
 // 把泛型变量和函数的参数等同对待，泛型只不过是另一个维度的参数，是代表类型而不是代表值的参数
+
+// 泛型类与泛型约束
+
+// 泛型类
+// 与泛型接口非常类似，泛型也可以约束类的成员，需要注意的是泛型不能应用于类的静态成员
+class Ame<T> {
+    run(value: T) {
+        console.log(value)
+        return value
+    }
+}
+const ame = new Ame<number>()
+ame.run(1)
+// 当不指定类型参数的时候，value值就可以是任意的值
+const ame1 = new Ame()
+ame1.run({a: 1})
+ame1.run('ss')
+
+// 类型约束
+interface Length {
+    length: number
+}
+function print<T extends Length>(value: T): T {
+    console.log(value, value.length)
+    return value
+}
+// 参数需要具有length属性
+print([1])
+print('ss')
+print({length: 1})
+
+// 泛型的好处
+// 1.函数和类可以轻松地支持多种类型，增强程序的拓展性
+// 2.不必写多条函数重载，冗长的联合类型声明，增强代码可读性
+// 3.灵活控制类型之间的约束
