@@ -24,8 +24,39 @@ abstract class Animal {
 }
 class Chicken extends Animal {
     sleep() {
-        console.log('sleep')
+        console.log('Chicken sleep')
     }
 }
 const chicken = new Chicken()
 chicken.eat()
+
+// 抽象类的好处就是可以抽离出一些事物的共性，这样就有利于代码的复用和拓展，另外抽象类可以实现多态
+// 所谓多态就是在父类中定义一个抽象方法，在多个子类中对方法有不同的实现，在程序运行的时候，会根据不同的对象，执行不同的操作，实现了运行时的绑定
+class Cattle extends Animal {
+    sleep() {
+        console.log('Cattle sleep')
+    }
+}
+const cattle = new Cattle()
+const animals: Animal[] = [chicken, cattle]
+animals.forEach(o => {
+    o.sleep()
+})
+
+// 链式调用
+class WorkFlow {
+    step1() {
+        return this
+    }
+    step2() {
+        return this
+    }
+}
+new WorkFlow().step1().step2()
+
+class Myflow extends WorkFlow {
+    next() {
+        return this
+    }
+}
+new Myflow().next().step1().next().step2()

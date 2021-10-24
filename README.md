@@ -449,3 +449,43 @@ const chicken = new Chicken()
 chicken.eat()
 ```
 
+#### 多态
+
+所谓多态就是在父类中定义一个抽象方法，在多个子类中对方法有不同的实现，在程序运行的时候，会根据不同的对象，执行不同的操作，实现了运行时的绑定 
+
+```javascript
+class Cattle extends Animal {
+    sleep() {
+        console.log('Cattle sleep')
+    }
+}
+const cattle = new Cattle()
+const animals: Animal[] = [chicken, cattle]
+animals.forEach(o => {
+    o.sleep()
+})
+```
+
+#### 链式调用
+
+链式调用的核心就在于调用完的方法讲自身的实例返回
+
+```javascript
+class WorkFlow {
+    step1() {
+        return this
+    }
+    step2() {
+        return this
+    }
+}
+new WorkFlow().step1().step2()
+
+class Myflow extends WorkFlow {
+    next() {
+        return this
+    }
+}
+new Myflow().next().step1().next().step2()
+```
+
