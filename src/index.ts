@@ -133,7 +133,7 @@ const clients: ClientSummary = {
   name: "John",
   active: true,
 };
-
+// 断言
 // as const 是 TS 的语法，它告诉 TS 它所断言的值以及该值的所有层级的子属性都是不可篡改的，故对每一级子属性都会做最严格的类型推断
 const albumsByStyle = {
   psychodelic: {

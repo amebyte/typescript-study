@@ -157,7 +157,7 @@ npm i webpack-merge -D
 }
 ```
 
-
+### never与void
 
 在js中void是一个操作符，它可以让任何表达式返回undefined, undefined不是一个保留字
 
@@ -171,7 +171,7 @@ npm i webpack-merge -D
 
 使用void 0 则可以确保我们的返回值为undefined
 
-```
+```javascript
 // never
 let error = () => {
     throw new Error('error')
@@ -180,7 +180,7 @@ let error = () => {
 
 一个函数如果抛出了一个错误，则它永远不会有返回值，则返回值类型为never
 
-### 对象接口
+### 对象类型接口
 
  ![](./images/2021-10-16-01.png)
 
@@ -204,19 +204,21 @@ let error = () => {
 
 但建议使用第一种，因为下面这种在React中可以产生歧义。
 
+### 索引签名
+
 我们还可以使用**索引签名**
 
  ![](./images/2021-10-16-06.png)
 
 这是一个字符串索引签名，它的含义是使用任意字符串去索引List可以得到任意的结果。这样List就可以支持多个属性了。
 
-**数字索引**
+#### 数字索引
 
  ![](./images/2021-10-16-07.png)
 
 含义就是用任意数字去索引StringArray得到的结构都是字符串
 
-**字符串索引**
+#### 字符串索引
 
  ![](./images/2021-10-16-08.png)
 
@@ -240,7 +242,102 @@ let error = () => {
 
  ![](./images/2021-10-16-12.png)
 
+### 函数类型接口
 
+通过Function来定义 
 
+```javascript
+function fn1(x: number, y: number) {
+    return x + y
+}
+```
 
+通过一个变量来定义 
 
+```javascript
+let fn2: (x: number, y: number) => number
+```
+
+通过类型别名来定义 
+
+```javascript
+type fn3 = (x: number, y: number) => number
+```
+
+通过接口来定义 
+
+```javascript
+interface fn4 {
+    (x: number, y: number): number
+}
+```
+
+### 混合类型接口
+
+定义接口
+
+```javascript
+interface lib {
+    (): void // 表示这个类是个函数，返回值是void
+    version: string, // 属性
+    toDo(): void // 方法
+}
+```
+
+实现
+
+```javascript
+let lib: lib = (() => {}) as lib
+lib.version = '1.0'
+lib.toDo = () => {}
+```
+
+创建多个实例 
+
+```javascript
+function getLib() {
+    let lib: lib = (() => {}) as lib
+    lib.version = '1.0'
+    lib.toDo = () => {} 
+    return lib
+}
+let lib1 = getLib()
+lib1.version
+lib1.toDo()
+let lib2 = getLib()
+lib2.version
+lib2.toDo()
+```
+
+### 函数重载
+
+```javascript
+class A {
+  sum(a: number, b: number) {
+    return a + b;
+  }
+}
+
+class B extends A {
+  sub(a: number, b: number) {
+    return a - b;
+  }
+}
+
+function maker(): B;
+function maker(p: string): A;
+function maker(p?: string) {
+  if (p) {
+    return new A();
+  }
+  return new B();
+}
+
+const instane = maker();
+instane.sub(1, 2);
+
+const instane2 = maker("ss");
+instane2.sum(1, 2);
+```
+
+ts编译器在处理重载的时候，会去查询一个重载的列表，并且会尝试匹配第一个定义，如果不匹配就继续往下查找，所以我们要把最容易匹配的放在第一个。

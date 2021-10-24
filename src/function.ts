@@ -11,3 +11,24 @@ type fn3 = (x: number, y: number) => number
 interface fn4 {
     (x: number, y: number): number
 }
+
+
+// 混合类型接口
+interface lib {
+    (): void // 表示这个类是个函数，返回值是void
+    version: string, // 属性
+    toDo(): void // 方法
+}
+
+// 实现
+let lib: lib = (() => {}) as lib
+lib.version = '1.0'
+lib.toDo = () => {}
+
+// 创建多个实例
+function getLib() {
+    let lib: lib = (() => {}) as lib
+    lib.version = '1.0'
+    lib.toDo = () => {} 
+    return lib
+}
