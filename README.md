@@ -341,3 +341,111 @@ instane2.sum(1, 2);
 ```
 
 ts编译器在处理重载的时候，会去查询一个重载的列表，并且会尝试匹配第一个定义，如果不匹配就继续往下查找，所以我们要把最容易匹配的放在第一个。
+
+#### 断言
+
+```javascript
+type NumGenerator1 = () => number;
+
+function myFunc1(numGenerator1: NumGenerator1 | undefined) {
+  const num1 = numGenerator1!(); 
+  const num2 = numGenerator1!(); 
+}
+```
+
+使用断言使编译器通过检查，不过不推荐这种写法，而应该使用重载 
+
+#### 重载
+
+```javascript
+type NumGenerator2 = () => number;
+function myFunc2(): undefined;
+function myFunc2(numGenerator2?: NumGenerator2) {
+  if (numGenerator2) {
+    const num1 = numGenerator2();
+    const num2 = numGenerator2();
+  }
+}
+```
+
+#### 可选项
+
+```javascript
+type NumGenerator3 = () => number;
+function myFunc3(numGenerator3: NumGenerator3 | undefined) {
+  const num1 = numGenerator3?.();
+}
+```
+
+### 类
+
+总体来说ts的类覆盖了js的类，同时引入了其他的一些新特性
+
+```javascript
+class Cat{
+    constructor(name:string) {
+        // this.name = name
+    }
+    name?: string
+    run() {}
+}
+```
+
+无论在ts中还是es中，类成员的属性，都是实例属性，而不是原型属性，类成员的方法，都是实例方法。
+
+#### 继承
+
+```javascript
+class ChildCat extends Cat {
+    constructor(name: string, public color: string) {
+        super(name)
+    }
+}
+```
+
+构造函数中一定要调用super
+
+#### 修饰符
+
+public默认都是public，含义就是对所有人都是可见的
+
+private私有成员，只能在类的本身调用，不能被实例调用，也不能被子类调用
+
+protected受保护成员，只能在类或者子类中访问，而不能在类的实例中访问
+
+constructor也可以添加protected，表明这个类不能实例化，只能被继承
+
+readonly 一定要初始化，跟实例属性是一样
+
+除了类成员可以添加修饰符之外，构造函数的参数也可以添加修饰符，它的作用就是将参数自动变成实例的属性，这样就省略在类中的定义了。
+
+```javascript
+class ChildCat extends Cat {
+    constructor(name: string, public color: string) {
+        super(name)
+    }
+}
+```
+
+static，类的静态修饰符，静态成员也可以被继承
+
+#### 抽象类
+
+es中并没有抽象类，这是ts对类的拓展，所谓抽象类，就是只能被继承而不能实例化的类。在抽象类中可以定义一个方法，它可以有具体的实现，这样子类就不用实现了，就实现了方法的复用。在抽象类中也可以不指定具体的方法实现，这就构成了抽象方法。抽象方法的好处就是你明知道子类中有其他的实现，那就没必要在父类中实现了。
+
+```javascript
+abstract class Animal {
+    eat() {
+        console.log('eat')
+    }
+    abstract sleep(): void
+}
+class Chicken extends Animal {
+    sleep() {
+        console.log('sleep')
+    }
+}
+const chicken = new Chicken()
+chicken.eat()
+```
+
