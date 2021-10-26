@@ -38,7 +38,7 @@ let obj = {
     b: 2,
     c: 3
 }
-function getValues(obj: any, keys: string[]) {
+function getValues<T,K extends keyof T>(obj: T, keys: K[]): T[K][] {
     return keys.map(key => obj[key])
 }
 console.log(getValues(obj, ['a', 'b']))
@@ -61,4 +61,6 @@ let value: Obj['a']
 // 泛型约束
 // T extends U
 // 表示泛型变量可以通过继承某个类型获得某些属性
+
+// 可以看到索引类型可以实现对对象属性的查询和访问，然后配合泛型约束，就能告诉我们建立对象、对象属性以及属性值之间的约束关系
 
