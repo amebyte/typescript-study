@@ -21,6 +21,7 @@ let ameType: number | string = '1' // 可以等于数字也可以等于字符串
 // 有的时候我们不仅需要限定一个变量的类型，而且要限定变量的取值在某一个特定的范围内
 let b: 'a' | 'b' | 'c'
 
+// 对象联合类型
 class DogImpl implements DogInterface {
     run() {}
     eat() {}
@@ -32,8 +33,11 @@ class CatImpl implements CatInterface {
 enum Master { Boy, Girl }
 function getPet(master: Master) {
     let pet = master === Master.Boy ? new DogImpl() : new CatImpl()
+    pet.eat() // 如果一个对象是联合类型，那么在类型未确定的情况下，它就只能访问所有类型的共有成员
+    pet.run()
     return pet
 }
+// 这个时候有趣的事情发生了，从名称上看联合类型给人感觉是取所有类型的并集，而实际情况只能访问所有成员的交集
 
 interface Square {
     kind: "square";
