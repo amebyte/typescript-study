@@ -51,12 +51,21 @@ interface Rectangle {
     width: number;
     height: number;
 }
-type Shape = Square | Rectangle
+interface Circle {
+    kind: 'circle',
+    r: number
+}
+type Shape = Square | Rectangle | Circle
 function area(s: Shape) {
     switch(s.kind) {
         case "square":
             return s.size * s.size
         case "rectangle":
             return s.height * s.width
+        case "circle":
+            return Math.PI * s.r ** 2
+        default: 
+            return ((e: never) => {throw new Error(e)})(s) // 检测s是不是never类型，如果s是never类型，就说明上面的分支都被覆盖了，这个分支永远不会执行，那么如果s不是never类型，就说明以前的分支有遗漏
     }
 }
+// 上面的代码如果不去升级是不会有问题的，但如果我们想加一种新的模式，它就会有问题了
