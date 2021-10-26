@@ -43,4 +43,22 @@ function getValues(obj: any, keys: string[]) {
 }
 console.log(getValues(obj, ['a', 'b']))
 
-console.log(getValues(obj, ['e', 'f'])) // 随意指定没有的属性，但ts编译器并没有报错，所以这个时候我们需要对类型进行约束，这个时候我们就需要用到了索引类型
+console.log(getValues(obj, ['e', 'f'])) 
+// 随意指定没有的属性，但ts编译器并没有报错，所以这个时候我们需要对类型进行约束，这个时候我们就需要用到了索引类型
+
+// keyof T 
+// 表示类型T的所有公共属性的字面量的联合类型
+interface Obj {
+    a: number,
+    b: string
+}
+type key = keyof Obj
+
+// T[k]
+// 表示对象T的属性k所代表的类型
+let value: Obj['a']
+
+// 泛型约束
+// T extends U
+// 表示泛型变量可以通过继承某个类型获得某些属性
+
