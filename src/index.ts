@@ -170,6 +170,8 @@ function myFunc3(numGenerator3: NumGenerator3 | undefined) {
   const num1 = numGenerator3?.();
 }
 
+// ts定义一个非空数组的类型，怎么定义?
+
 // ts 定义数组对象格式 怎么定的,一开始是空
 
 type Aa = Array<{ abc: string }>;
