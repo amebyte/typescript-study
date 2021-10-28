@@ -26,3 +26,16 @@ type T4 = Diff<'a'|'b'|'c', 'a' | 'e'>
 // never | "b" | "c"
 // "b" | "c"
 
+type NotNull<T> = Diff<T, undefined | null>
+type T5 = NotNull<string | number | undefined | null>
+
+// Exclude<T, U>
+// NonNullable<T>
+// Extract<T, U>
+
+type T6 = Extract<'a' | 'b' | 'c', 'a' | 'e'>
+
+// ReturnType<T>
+
+type T7 = ReturnType<() => string>
+
