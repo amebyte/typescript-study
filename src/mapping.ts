@@ -12,7 +12,6 @@ type PartialObj = Partial<objMapping>
 
 type PickObj = Pick<objMapping, 'a'|'b'>
 
-// 以上三种映射类型官方称为同态,意思是只作用于obj属性而不会引入新的属性
 
 // Readonly的实现原理:
 // 从源码可以看出Readonly是一个可索引类型的泛型接口
@@ -27,6 +26,17 @@ type PickObj = Pick<objMapping, 'a'|'b'>
 
 // 4)最后再加上Readonly就把所有的属性变成了只读,这就是Readonly的实现原理
 
+// Partial的实现原理:
+// 可选和只读映射类型的实现几乎一样,知识属性变为可选
+
+// Pick映射类型的实现原理:
+
+// Pick映射类型有两个参数:
+// 第一个参数T,表示要抽取的目标对象
+// 第二个参数K,具有一个约束:K一定要来自T所有属性字面量的联合类型,
+// 即映射得到的新类型的属性一定要从K中选取
+
+// 以上三种映射类型官方称为同态,意思是只作用于obj属性而不会引入新的属性
 
 type RecordObj = Record<'x' | 'y', objMapping>
 // Record 是非同态类型
