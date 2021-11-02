@@ -27,6 +27,7 @@ TypeScript编译后的JavaScript版本
 
 
 ### 是否使用noImplicitAny
+这是不允许隐式any 
 
 noImplicitAny编译器选项所做的，基本上是将TypeScript从可选类型语言转换为强制类型检验语言。这使得TypeScript离JavaScript的超集稍微远了一些，因为简单的：
 
@@ -102,21 +103,17 @@ function printUserInfo(user: User) {
 2. 如果执行If条件检查, TypeScript可以推断某些内容是非空的。
 3. 然而，对于三元运算符来说，不幸的是情况并非如此。
 
-
-
-空安全 
-
-这是不允许隐式any 
-
-类型收缩 
+关键字：`空安全`  `类型收缩` 
 
 
 
- type是唯一的 
+### type和interface的区别
+
+type是唯一的 
 
 interface可以存在多个 
 
- 同名 interface 会合并 
+同名 interface 会合并 
 
 类型创建后不能更改
 
@@ -126,4 +123,11 @@ interface可以存在多个
 
 
 
+
+生成中文注释的配置文件
+
+```
 tsc --init --locale zh-cn
+```
+
+
