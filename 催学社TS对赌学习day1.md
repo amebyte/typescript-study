@@ -109,17 +109,19 @@ function printUserInfo(user: User) {
 
 ### type和interface的区别
 
-type是唯一的 
+1. type是唯一的 
 
-interface可以存在多个 
+2. interface可以存在多个 
 
-同名 interface 会合并 
+3. 同名 interface 会合并 
 
-类型创建后不能更改
+4. 类型创建后不能更改
 
-允许用户拓展就使用interface
+5. 允许用户拓展就使用interface
 
-优先使用interface
+6. 优先使用interface
+7. 用interface描述**数据结构**，用type描述**类型关系** 
+8. type 还可以定义字符串字面量类型，type x = 'a' | 'b' | 'c' 那么使用该类型只能从这三个值中取，不在的就会报错。另外使用type比较多的地方就是联合类型，如函数返回类型是type x = string | object | void，就不用一次次的写，复用性就高了 
 
 
 
