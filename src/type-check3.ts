@@ -55,15 +55,3 @@ function getLanguage(type: Type, x: string | number) {
 }
 
 getLanguage(Type.Strong)
-
-
-const request = {
-    options: () => {},
-    get: () => {},
-    post: () => {},
-    put: () => {},
-    head: () => {},
-    delete: () => {},
-    trace: () => {},
-    connect: () => {},
-}

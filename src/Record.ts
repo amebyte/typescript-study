@@ -28,4 +28,20 @@ const httpMethods: IHttp = methods.reduce((map: any, method: string) => {
     return map
 }, {})
 
-export default httpMethods;
+
+type RequestOptionsMethod = 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT'
+type RequestOptionsMethodAll = RequestOptionsMethod | Lowercase<RequestOptionsMethod>
+
+const methods2: RequestOptionsMethodAll[] = ['get', 'post']
+type Methods = typeof methods2[number]
+const request: { [key in Methods] ?: Function } = {}
+
+methods2.forEach(method => {
+    request[method] = (api: any, data: any, opt: any, params: any) => baseRequest(api, method, data, opt || {}, params)
+})
+
+function baseRequest(api: any, method: string, data: any, arg3: any, params: any) {
+    throw new Error("Function not implemented.");
+}
+
+request?.get!('xxxx', 'ddd', 'xxx', 'xxx')
